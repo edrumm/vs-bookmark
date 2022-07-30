@@ -11,14 +11,15 @@ class Item extends vscode.TreeItem {
     }
 }
 
+/**
+ * @implements {vscode.TreeDataProvider<Item>}
+ */
 class TreeDataProvider {
     // Sample data
     constructor() {
         this.items = [
-            new Item('Bookmarks', [
-                new Item('exampleOne.file', [new Item('a line from the file'), new Item('another line from the file')]), 
-                new Item('exampleTwo.file', [new Item('a line from the file')])
-            ])
+            new Item('exampleOne.file', [new Item('a line from the file'), new Item('another line from the file')]), 
+            new Item('exampleTwo.file', [new Item('a line from the file')])
         ];
     }
     
