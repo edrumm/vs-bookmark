@@ -10,15 +10,43 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vs-bookmark.helloWorld"
+    "onCommand:vs-bookmark.toggle",
+    "onCommand:vs-bookmark.jump",
+    "onCommand:vs-bookmark.list",
+    "onCommand:vs-bookmark.listAll",
+    "onCommand:vs-bookmark.clear",
+    "onCommand:vs-bookmark.clearAll"
   ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "vs-bookmark.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "vs-bookmark.toggle",
+        "title": "Toggle"
+      },
+      {
+        "command": "vs-bookmark.jump",
+        "title": "Jump to bookmark"
+      },
+      {
+        "command": "vs-bookmark.list",
+        "title": "List all bookmarks in this file"
+      },
+      {
+        "command": "vs-bookmark.listAll",
+        "title": "List all bookmarks"
+      },
+      {
+        "command": "vs-bookmark.clear",
+        "title": "Clear all bookmarks in this file"
+      },
+      {
+        "command": "vs-bookmark.clearAll",
+        "title": "Clear all bookmarks"
+      }
+    ]
   },
+  "keybindings": [],
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
