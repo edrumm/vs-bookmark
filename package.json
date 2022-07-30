@@ -10,6 +10,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onView:bookmarkList",
     "onCommand:vs-bookmark.toggle",
     "onCommand:vs-bookmark.jump",
     "onCommand:vs-bookmark.list",
@@ -44,7 +45,15 @@
         "command": "vs-bookmark.clearAll",
         "title": "Clear all bookmarks"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "bookmarkList",
+          "name": "Bookmark List"
+        }
+      ]
+    }
   },
   "keybindings": [],
   "scripts": {

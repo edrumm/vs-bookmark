@@ -2,11 +2,14 @@
 	Extension description
 */
 const vscode = require('vscode');
+const TreeDataProvider = require('./src/treeDataProvider');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+
+	vscode.window.registerTreeDataProvider('bookmarkList', new TreeDataProvider());
 
 	const toggle = vscode.commands.registerCommand('vs-bookmark.toggle', () => {
 		vscode.window.showInformationMessage('Toggle');
@@ -48,4 +51,4 @@ function deactivate() {}
 module.exports = {
 	activate,
 	deactivate
-}
+};
