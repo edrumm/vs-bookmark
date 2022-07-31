@@ -7,7 +7,7 @@ class Item extends vscode.TreeItem {
         } else {
             super(label, vscode.TreeItemCollapsibleState.None);
         }
-        this.children = children;
+        this.children = children || [];
     }
 }
 
@@ -21,6 +21,8 @@ class TreeDataProvider {
             new Item('exampleOne.file', [new Item('a line from the file'), new Item('another line from the file')]), 
             new Item('exampleTwo.file', [new Item('a line from the file')])
         ];
+        this._onDidChangeTreeData = new vscode.EventEmitter();
+        this.onDidChangeTreeData = this._onDidChangeTreeData.event;
     }
     
     getTreeItem(treeItem) {
@@ -28,10 +30,14 @@ class TreeDataProvider {
     }
 
     getChildren(parent) {
-        if (parent === undefined) {
+        if (!parent) {
             return this.items;
         }
         return parent.children;
+    }
+
+    refresh() {
+        this._onDidChangeTreeData.fire();
     }
 }
 

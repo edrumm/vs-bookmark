@@ -9,7 +9,8 @@ const TreeDataProvider = require('./src/treeDataProvider');
  */
 function activate(context) {
 
-	vscode.window.registerTreeDataProvider('bookmarkList', new TreeDataProvider());
+	const dataProvider = new TreeDataProvider();
+	vscode.window.registerTreeDataProvider('bookmarkList', dataProvider);
 
 	const toggle = vscode.commands.registerCommand('vs-bookmark.toggle', () => {
 		vscode.window.showInformationMessage('Toggle');
@@ -35,14 +36,19 @@ function activate(context) {
 		vscode.window.showInformationMessage('Clear all');
 	});
 
-	// context.subscriptions.push(activate, toggle);
+	// Test only
+	const refresh = vscode.commands.registerCommand('vs-bookmark.refresh', () => {
+		dataProvider.refresh();
+	});
+
 	context.subscriptions.concat([
 		toggle,
 		jump,
 		list,
 		listAll,
 		clear,
-		clearAll
+		clearAll,
+		refresh
 	]);
 }
 
