@@ -36,6 +36,21 @@ class TreeDataProvider {
         return parent.children;
     }
 
+    setBookmark(parentId, label) {
+        const parent = this.items.find(item => item.label === parentId);
+      	if (!parent) {
+         	this.items.push(new Item(parentId, [new Item(label)])); 
+        } else {
+          	parent.children.push(new Item(label));
+        }
+    }
+
+    unsetBookmark() {
+        
+        // TODO
+
+    }
+
     refresh() {
         this._onDidChangeTreeData.fire();
     }
