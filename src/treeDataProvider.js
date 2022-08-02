@@ -15,12 +15,8 @@ class Item extends vscode.TreeItem {
  * @implements {vscode.TreeDataProvider<Item>}
  */
 class TreeDataProvider {
-    // Sample data
     constructor() {
-        this.items = [
-            new Item('exampleOne.file', [new Item('a line from the file'), new Item('another line from the file')]), 
-            new Item('exampleTwo.file', [new Item('a line from the file')])
-        ];
+        this.items = [];
         this._onDidChangeTreeData = new vscode.EventEmitter();
         this.onDidChangeTreeData = this._onDidChangeTreeData.event;
     }
@@ -36,6 +32,14 @@ class TreeDataProvider {
         return parent.children;
     }
 
+    contains(parentId, label) {
+        const parent = this.items.find(item => item.label === parentId);
+        if (!parent) return false;
+
+        const item = parent.children.find(item => item.label === label);
+        return parent.children.includes(item);
+    }
+
     setBookmark(parentId, label) {
         const parent = this.items.find(item => item.label === parentId);
       	if (!parent) {
@@ -45,14 +49,27 @@ class TreeDataProvider {
         }
     }
 
-    unsetBookmark() {
-        
-        // TODO
+    unsetBookmark(parentId, label) {
+        const parent = this.items.find(item => item.label === parentId);
+        const bookmark = parent.children.find(item => item.label === label);
+        parent.children.splice(parent.children.indexOf(bookmark), 1);
 
+        if (parent.children.length === 0) {
+            this.items.splice(this.items.indexOf(parent), 1);
+        }
     }
 
     refresh() {
         this._onDidChangeTreeData.fire();
+    }
+
+    clear(parentId) {
+        if (parentId === undefined) {
+            this.items = [];
+        } else {
+            const parent = this.items.find(item => item.label === parentId);
+            parent.children = [];
+        }
     }
 }
 

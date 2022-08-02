@@ -13,7 +13,19 @@ function activate(context) {
 	vscode.window.registerTreeDataProvider('bookmarkList', dataProvider);
 
 	const toggle = vscode.commands.registerCommand('vs-bookmark.toggle', () => {
-		vscode.window.showInformationMessage('Toggle');
+		/* TEST DATA
+		const n = Math.floor(Math.random() * 5);
+		const file = 'someFileOne.file';
+		const line = `A random ${n}`;
+
+		if (dataProvider.contains(file, line)) {
+			dataProvider.unsetBookmark(file, line);
+		} else {
+			dataProvider.setBookmark(file, line);
+		}
+
+		dataProvider.refresh();
+		*/
 	});
 
 	const jump = vscode.commands.registerCommand('vs-bookmark.jump', () => {
@@ -29,11 +41,23 @@ function activate(context) {
 	});
 
 	const clear = vscode.commands.registerCommand('vs-bookmark.clear', () => {
-		vscode.window.showInformationMessage('Clear');
+		vscode.window.showInformationMessage('Clear all bookmnarks in this file?', ...['Yes', 'No'])
+		.then(selection => {
+			if (selection === 'Yes') {
+				// TODO
+				dataProvider.refresh();
+			}
+		});
 	});
 
 	const clearAll = vscode.commands.registerCommand('vs-bookmark.clearAll', () => {
-		vscode.window.showInformationMessage('Clear all');
+		vscode.window.showInformationMessage('Clear all bookmnarks in thie workspace?', ...['Yes', 'No'])
+		.then(selection => {
+			if (selection === 'Yes') {
+				dataProvider.clear();
+				dataProvider.refresh();
+			}
+		});
 	});
 
 	// Test only
